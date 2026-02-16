@@ -13,6 +13,7 @@ import '../../features/anime/domain/usecases/toggle_favorite.dart';
 import '../../features/anime/domain/usecases/get_favorites.dart';
 import '../../features/anime/presentation/bloc/favorites_cubit.dart';
 import '../../features/anime/presentation/bloc/anime_list_bloc.dart';
+import '../../features/anime/presentation/bloc/search/search_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -58,4 +59,7 @@ Future<void> initDependencies() async {
 
   // List
   sl.registerFactory(() => AnimeListBloc(sl()));
+
+  // Search
+  sl.registerFactory(() => SearchBloc(sl()));
 }
