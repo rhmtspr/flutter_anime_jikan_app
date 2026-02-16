@@ -1,3 +1,4 @@
+import 'package:anime_jikan_app/features/anime/presentation/widgets/favorite_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../domain/entities/anime.dart';
@@ -28,6 +29,11 @@ class AnimeCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+            ),
+            Positioned(
+              top: 4,
+              right: 4,
+              child: FavoriteButton(animeId: anime.id),
             ),
             Padding(
               padding: const EdgeInsets.all(8),
