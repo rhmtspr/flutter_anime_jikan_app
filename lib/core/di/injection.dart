@@ -12,6 +12,7 @@ import '../../features/anime/domain/usecases/get_anime_detail.dart';
 import '../../features/anime/domain/usecases/toggle_favorite.dart';
 import '../../features/anime/domain/usecases/get_favorites.dart';
 import '../../features/anime/presentation/bloc/favorites_cubit.dart';
+import '../../features/anime/presentation/bloc/anime_list_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -54,4 +55,7 @@ Future<void> initDependencies() async {
 
   // Favorite Cubit
   sl.registerFactory(() => FavoritesCubit(sl(), sl()));
+
+  // List
+  sl.registerFactory(() => AnimeListBloc(sl()));
 }
