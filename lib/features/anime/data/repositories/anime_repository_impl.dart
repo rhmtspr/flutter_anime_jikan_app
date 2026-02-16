@@ -3,11 +3,14 @@ import '../../../../core/errors/failures.dart';
 import '../../domain/entities/anime.dart';
 import '../../domain/repositories/anime_repository.dart';
 import '../datasources/anime_remote_datasource.dart';
+import '../datasources/anime_local_datasource.dart';
+import '../models/favorite_anime_model.dart';
 
 class AnimeRepositoryImpl implements AnimeRepository {
   final AnimeRemoteDataSource remote;
+  final AnimeLocalDataSource local;
 
-  AnimeRepositoryImpl(this.remote);
+  AnimeRepositoryImpl(this.remote, this.local);
 
   @override
   Future<(Failure?, List<Anime>?)> getTopAnime(int page) async {
@@ -52,5 +55,38 @@ class AnimeRepositoryImpl implements AnimeRepository {
     } catch (_) {
       return (const UnknownFailure(), null);
     }
+  }
+
+  @override
+  List<Anime> getFavorites() {
+    final favorites = local.getFavorites();
+    return favorites
+        .map(
+          (e) => Anime(
+            id: e.id,
+            title: e.title,
+            imageUrl: e.imageUrl,
+            score: e.score,
+            synopsis: '',
+          ),
+        )
+        .toList();
+  }
+
+  @override
+  Future<void> toggleFavorite(Anime anime) async {
+    final model = FavoriteAnimeModel(
+      id: anime.id,
+      title: anime.title,
+      imageUrl: anime.imageUrl,
+      score: anime.score,
+    );
+
+    await local.toggleFavorite(model);
+  }
+
+  @override
+  bool isFavorite(int id) {
+    return local.isFavorite(id);
   }
 }
