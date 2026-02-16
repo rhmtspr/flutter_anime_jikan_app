@@ -1,3 +1,4 @@
+import 'package:anime_jikan_app/features/anime/presentation/widgets/favorite_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/di/injection.dart';
@@ -47,7 +48,10 @@ class _AnimeDetailPageState extends State<AnimeDetailPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(title ?? 'Detail')),
+      appBar: AppBar(
+        title: Text(title ?? 'Detail'),
+        actions: [FavoriteButton(animeId: widget.id)],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
