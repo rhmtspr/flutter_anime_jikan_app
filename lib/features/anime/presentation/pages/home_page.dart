@@ -1,5 +1,6 @@
 import 'package:anime_jikan_app/core/di/injection.dart';
 import 'package:anime_jikan_app/features/anime/domain/repositories/anime_repository.dart';
+import 'package:anime_jikan_app/features/anime/domain/usecases/get_top_anime.dart';
 import 'package:flutter/material.dart';
 
 // 1. Change to StatefulWidget
@@ -21,9 +22,14 @@ class _HomePageState extends State<HomePage> {
   // 3. Add your private method inside the State class
   Future<void> _testApi() async {
     // Note: Ensure 'sl' and 'AnimeRepository' are imported/accessible
-    final repo = sl<AnimeRepository>();
-    final data = await repo.getTopAnime(1);
-    print(data.first.title);
+    final usecase = sl<GetTopAnime>();
+    final (failure, data) = await usecase(1);
+
+    if (failure != null) {
+      print(failure.message);
+    } else {
+      print(data!.first.title);
+    }
   }
 
   @override
