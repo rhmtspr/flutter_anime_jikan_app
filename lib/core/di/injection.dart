@@ -4,6 +4,10 @@ import 'package:anime_jikan_app/features/anime/domain/repositories/anime_reposit
 import 'package:get_it/get_it.dart';
 import '../network/dio_client.dart';
 
+import '../../features/anime/domain/usecases/get_top_anime.dart';
+import '../../features/anime/domain/usecases/search_anime.dart';
+import '../../features/anime/domain/usecases/get_anime_detail.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -18,4 +22,9 @@ Future<void> initDependencies() async {
 
   // Repository
   sl.registerLazySingleton<AnimeRepository>(() => AnimeRepositoryImpl(sl()));
+
+  // Use cases
+  sl.registerLazySingleton(() => GetTopAnime(sl()));
+  sl.registerLazySingleton(() => SearchAnime(sl()));
+  sl.registerLazySingleton(() => GetAnimeDetail(sl()));
 }
