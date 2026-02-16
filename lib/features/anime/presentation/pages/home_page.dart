@@ -4,6 +4,7 @@ import '../../../../core/di/injection.dart';
 import '../bloc/anime_list_bloc.dart';
 import '../widgets/anime_card.dart';
 import 'anime_detail_page.dart';
+import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,7 +36,20 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider.value(
       value: bloc,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Anime Explorer')),
+        appBar: AppBar(
+          title: const Text('Anime Explorer'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SearchPage()),
+                );
+              },
+            ),
+          ],
+        ),
         body: BlocBuilder<AnimeListBloc, AnimeListState>(
           builder: (context, state) {
             if (state is AnimeListLoading) {
