@@ -55,7 +55,7 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => GetFavorites(sl()));
 
   // Favorite Cubit
-  sl.registerFactory(() => FavoritesCubit(sl(), sl()));
+  sl.registerFactory(() => FavoritesCubit());
 
   // List
   sl.registerFactory(() => AnimeListBloc(sl()));
